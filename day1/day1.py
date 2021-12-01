@@ -23,7 +23,7 @@ def processReturns(inputs: List[int]) -> int:
 
 
 def addList(values: List[int]) -> int:
-    total = 0
+    total: int = 0
     for value in values:
         total += value
     return total
