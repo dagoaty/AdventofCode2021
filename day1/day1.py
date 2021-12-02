@@ -5,7 +5,7 @@ from typing import List
 
 
 def get_inputs(file: str) -> List[int]:
-    inputs: list = []
+    inputs: list[int] = []
     f = open(file, "r")
     for line in f:
         inputs.append(int(line.rstrip()))
