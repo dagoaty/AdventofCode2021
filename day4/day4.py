@@ -21,10 +21,18 @@ def buildCards(inputs: List[str]) -> List[List[List[int]]]:
 
 
 def cardToWinLines(card: List[List[int]]) -> List[List[int]]:
-    newCard = [row for row in card]
+    newCard = card[:]
     for col in [[row[i] for row in card] for i in range(len(card))]:
         newCard.append(col)
     return newCard
+
+
+def cardsToWinLines(cards: List[List[List[int]]]) -> List[List[List[int]]]:
+    newCards = cards[:]
+    newCardsLines: List[List[List[int]]] = []
+    for newCard in newCards:
+        newCardsLines.append(cardToWinLines(newCard))
+    return newCardsLines
 
 
 def get_inputs(file: str) -> List[str]:
@@ -88,9 +96,7 @@ def sumUncalledNumbers(card: List[List[int]], callLine: List[int]) -> int:
 def parts(inputs: List[str]) -> None:
     callLine: List[int] = getCallLine(inputs)
     cards: List[List[List[int]]] = buildCards(inputs)
-    cardsWinLines: List[List[List[int]]] = []
-    for card in cards:
-        cardsWinLines.append(cardToWinLines(card))
+    cardsWinLines: List[List[List[int]]] = cardsToWinLines(cards)
     winningCard, winningPos, losingCard, losingPos = getWinLoseCards(cardsWinLines, callLine)
     winningNum = callLine[winningPos]
     sumWinUncalled = sumUncalledNumbers(cards[winningCard], callLine[:winningPos+1])
