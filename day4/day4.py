@@ -57,30 +57,22 @@ def getCardWinningPos(card: List[List[int]], callLine: List[int]) -> int:
     return cardWinPos
 
 
-def getWinningCard(cards: List[List[List[int]]], callLine: List[int]) -> Tuple[int, int]:
+def getWinLoseCards(cards: List[List[List[int]]], callLine: List[int]) -> Tuple[int, int, int, int]:
     winCard: int = len(cards)
+    loseCard: int = len(cards)
     cardNum: int = 0
     winPos: int = len(callLine)
+    losePos: int = 0
     for card in cards:
         cardWinPos = getCardWinningPos(card, callLine)
         if cardWinPos < winPos:
             winCard = cardNum
-            winPos = cardWinPos
-        cardNum += 1
-    return winCard, winPos
-
-
-def getLosingCard(cards: List[List[List[int]]], callLine: List[int]) -> Tuple[int, int]:
-    loseCard: int = len(cards)
-    cardNum: int = 0
-    winPos: int = 0
-    for card in cards:
-        cardWinPos = getCardWinningPos(card, callLine)
-        if cardWinPos > winPos:
+            winPos = cardWinPos        
+        if cardWinPos > losePos:
             loseCard = cardNum
-            winPos = cardWinPos
+            losePos = cardWinPos
         cardNum += 1
-    return loseCard, winPos
+    return winCard, winPos, loseCard, losePos
 
 
 def flattenCard(card: List[List[int]]) -> Set[int]:
@@ -99,16 +91,14 @@ def parts(inputs: List[str]) -> None:
     cardsWinLines: List[List[List[int]]] = []
     for card in cards:
         cardsWinLines.append(cardToWinLines(card))
-    winningCard, winningPos = getWinningCard(cardsWinLines, callLine)
+    winningCard, winningPos, losingCard, losingPos = getWinLoseCards(cardsWinLines, callLine)
     winningNum = callLine[winningPos]
-    sumUncalled = sumUncalledNumbers(cards[winningCard], callLine[:winningPos+1])
-    print("Part 1: %s" % (sumUncalled * winningNum))
-
-    # Part 2 starts here
-    losingCard, losingPos = getLosingCard(cardsWinLines, callLine)
+    sumWinUncalled = sumUncalledNumbers(cards[winningCard], callLine[:winningPos+1])
     losingNum = callLine[losingPos]
-    sumUncalled = sumUncalledNumbers(cards[losingCard], callLine[:losingPos+1])
-    print("Part 2: %s" % (sumUncalled * losingNum))
+    sumLoseUncalled = sumUncalledNumbers(cards[losingCard], callLine[:losingPos+1])
+
+    print("Part 1: %s" % (sumWinUncalled * winningNum))
+    print("Part 2: %s" % (sumLoseUncalled * losingNum))
 
 
 def main() -> None:
