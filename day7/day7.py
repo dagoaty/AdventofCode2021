@@ -16,7 +16,8 @@ def fuelCalc(curPos: int, destPos: int) -> int:
 
 
 def thirstyFuelCalc(curPos: int, destPos: int) -> int:
-    return sum(range(1, abs(curPos - destPos)+1))
+    distance = abs(curPos - destPos)
+    return int(((distance**2)+distance)/2)
 
 
 def getLimit(inputs: List[int]) -> int:
