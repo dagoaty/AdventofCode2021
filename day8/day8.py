@@ -16,10 +16,10 @@ def get_inputs(file: str) -> List[List[List[str]]]:
     return inputs
 
 
-def countSingles(signals: List[int]) -> int:
+def countSingles(signals: List[List[List[str]]]) -> int:
     count: int = 0
     for line in signals:
-        outputVals: List[int] = line[1]
+        outputVals: List[str] = line[1]
         for val in outputVals:
             if len(val) in (2, 3, 4, 7):
                 count += 1
@@ -42,7 +42,7 @@ def findFour(wires: List[str]) -> str:
     return answer
 
 
-def findSix(wires: List[str], nine, zero) -> str:
+def findSix(wires: List[str], nine: str, zero: str) -> str:
     answer: str = ''
     for wire in wires:
         if len(wire) == 6:
@@ -135,14 +135,14 @@ def findFive(wires: List[str], seven: str, nine: str) -> str:
     return answer
 
 
-def findTwo(wires: List[str], seven: str, nine: str) -> str:
+def findTwo(wires: List[str], three: str, five: str) -> str:
     answer: str = ''
     for wire in wires:
         if len(wire) == 5:
             reject = False
-            if sorted(wire) == sorted(seven):
+            if sorted(wire) == sorted(three):
                 reject = True
-            if sorted(wire) == sorted(nine):
+            if sorted(wire) == sorted(five):
                 reject = True
             if reject == False:
                 answer = ''.join(sorted(wire))
@@ -150,8 +150,7 @@ def findTwo(wires: List[str], seven: str, nine: str) -> str:
     return answer
 
 
-def processLine(display: List[List[int]]) -> int:
-    number: int = 0
+def processLine(display: List[List[str]]) -> int:
     one = findOne(display[0])
     four = findFour(display[0])
     seven = findSeven(display[0])
@@ -163,7 +162,7 @@ def processLine(display: List[List[int]]) -> int:
     five = findFive(display[0], seven, nine)
     two = findTwo(display[0], three, five)
     #print("Zero: %s\nOne: %s\nTwo: %s\nThree: %s\nFour: %s\nFive: %s\nSix: %s\nSeven: %s\nEight: %s\nNine: %s" % (zero, one, two, three, four, five, six, seven, eight, nine))
-    number = ''
+    number: str = ''
     for n in display[1]:
         sortn = ''.join(sorted(n))
         if sortn == one:
@@ -189,12 +188,12 @@ def processLine(display: List[List[int]]) -> int:
     return int(number)
 
 
-def part1(inputs: List[int]) -> None:
+def part1(inputs: List[List[List[str]]]) -> None:
     singleCount = countSingles(inputs)
     print("Part 1: %s" % singleCount)
 
 
-def part2(inputs: List[int]) -> None:
+def part2(inputs: List[List[List[str]]]) -> None:
     total = 0
     for display in inputs:
         total += processLine(display)
@@ -203,7 +202,7 @@ def part2(inputs: List[int]) -> None:
 
 def main() -> None:
     filename = sys.argv[1]
-    inputs: List[int] = get_inputs(filename)
+    inputs: List[List[List[str]]] = get_inputs(filename)
     part1(inputs)
     part2(inputs)
 
