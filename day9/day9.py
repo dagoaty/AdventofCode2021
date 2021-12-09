@@ -70,8 +70,8 @@ def countBasins(inputs: List[List[int]]) -> int:
             inputs, newBasin = countBasin(inputs, (h, w))
             if newBasin > 0:
                 basins.append(newBasin)
-    basins = sorted(basins)
-    return basins[-3] * basins[-2] * basins[-1]
+    basins = sorted(basins)[-3:]
+    return basins[0] * basins[1] * basins[2]
 
 
 def part1(inputs: List[List[int]]) -> None:
