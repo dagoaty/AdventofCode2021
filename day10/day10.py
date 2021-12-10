@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from os import close
 import sys
 from typing import List, Dict
 
