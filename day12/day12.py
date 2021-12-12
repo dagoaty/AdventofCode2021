@@ -2,7 +2,7 @@
 
 import sys
 from typing import List, Dict, Tuple
-from collections import defaultdict, Counter
+from collections import defaultdict
 
 def get_inputs(file: str) -> List[Tuple[str, str]]:
     inputs: List[Tuple[str, str]] = []
@@ -20,14 +20,6 @@ def buildCaveMap(inputs: List[Tuple[str, str]]) -> Dict[str, List[str]]:
         caveMap[source].append(destination)
         caveMap[destination].append(source)
     return caveMap
-
-
-def maxedVisits(cave: str, path: List[str], max: int) -> bool:
-    maxFlag: bool = False
-    visitCount = Counter(path)
-    if visitCount[cave] >= max:
-        maxFlag = True
-    return maxFlag
 
 
 def canVisit(cave: str, pathfinder: List[str], revisit: str) -> bool:
