@@ -34,7 +34,7 @@ def canVisit(cave: str, pathfinder: List[str], revisit: str) -> bool:
     return visitFlag
 
 
-def findRoutes(caveMap: Dict[str, List[str]], smallCave: str ='') -> List[List[str]]:
+def findRoutes(caveMap: Dict[str, List[str]], smallCave: str = '') -> List[List[str]]:
     routes: List[List[str]] = []
     pathfinder: List[List[str]] = [['start']]
     while len(pathfinder) > 0:
